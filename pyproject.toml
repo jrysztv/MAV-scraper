@@ -1,0 +1,25 @@
+[tool.poetry]
+name = "mav-scraper"
+version = "0.1.0"
+description = "This project scrapes and stores the data from an unofficial API of MÁV."
+authors = ["Istvan Peter Jaray <istvanpeterjaray@gmail.com>"]
+license = "MIT"
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.11"
+pandas = "^2.2.3"
+numpy = "^2.2.0"
+beautifulsoup4 = "^4.12.3"
+jupyter = "^1.1.1"
+requests = "^2.32.3"
+datetime = "^5.5"
+tqdm = "^4.67.1"
+slack-sdk = "^3.33.5"
+loguru = "^0.7.3"
+path = "^17.0.0"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
