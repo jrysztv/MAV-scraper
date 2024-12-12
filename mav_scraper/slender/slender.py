@@ -6,6 +6,7 @@ from loguru import logger
 
 from mav_scraper.slender import slender
 
+
 load_dotenv()
 
 
