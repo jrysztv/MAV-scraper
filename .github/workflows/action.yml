@@ -1,11 +1,11 @@
 name: run mavbot
 
 on:
-  push:
-    branches:
-      - main
-  # schedule:
-  #   - cron: '*/5 * * * *' # Every 5 minutes
+  # push: # Debugging
+  #   branches:
+  #     - main
+  schedule:
+    - cron: '*/5 * * * *' # Every 5 minutes
 
 jobs:
   build:
