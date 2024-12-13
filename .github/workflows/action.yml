@@ -12,6 +12,9 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       contents: write  # Grants write permission
+    concurrency:
+      group: ${{ github.workflow }}
+      cancel-in-progress: false
     steps:
 
       - name: Checkout repository content
@@ -21,7 +24,15 @@ jobs:
         uses: actions/setup-python@v4
         with:
           python-version: '3.11' # Install the required Python version
-          
+      
+      - name: Cache Poetry dependencies
+        uses: actions/cache@v3
+        with:
+          path: ~/.cache/pypoetry # Cache directory used by Poetry
+          key: ${{ runner.os }}-poetry-${{ hashFiles('**/poetry.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-poetry-
+      
       - name: Install Poetry
         run: |
           python -m pip install --upgrade pip
@@ -29,12 +40,6 @@ jobs:
 
       - name: Install dependencies with Poetry
         run: poetry install
-
-      - name: Debug token presence
-        run: |
-          echo "SLACK_BOT_TOKEN length: ${#SLACK_BOT_TOKEN}"
-        env:
-          SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
 
       - name: Execute Python script
         env:
