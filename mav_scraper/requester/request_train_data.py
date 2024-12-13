@@ -1,12 +1,15 @@
 # %%
 from __future__ import annotations
+import asyncio
 import datetime
 from pathlib import Path
 from typing import Any, Dict, List, Optional, Tuple, Union
 
+import httpx
 import pandas as pd
 import requests
 from bs4 import BeautifulSoup
+from tqdm.asyncio import tqdm_asyncio
 from tqdm import tqdm
 
 from dotenv import load_dotenv
@@ -22,7 +25,7 @@ class TrainDataFetcher:
 
     BASE_URL: str = "https://vonatinfo.mav-start.hu/map.aspx/getData"
 
-    def __init__(self, headers: Dict[str, str]) -> None:
+    def __init__(self, headers: Dict[str, str], concurrency=3) -> None:
         """
         Initialize the TrainDataFetcher with required headers and cookies.
 
@@ -31,6 +34,7 @@ class TrainDataFetcher:
         """
         self.headers = headers
         # self.cookies = cookies
+        self.semaphore = asyncio.Semaphore(concurrency)
 
     def fetch_train_locations(self) -> pd.DataFrame:
         """
@@ -116,19 +120,20 @@ class TrainDataFetcher:
 
         :param elvira_id: The Elvira ID of the train.
         :param train_number: The train number.
-        :return: A dictionary containing 'elvira_id', 'train_number', and 'html'.
-                Returns None in case of failures.
+        :param async_fetch: If True, use asynchronous HTTP fetch. Otherwise, use synchronous requests.
+        :return: A dictionary containing 'elvira_id', 'train_number', and 'html',
+                 or None on error.
         """
         json_data = {
             "a": "TRAIN",
             "jo": {
-                # "v": elvira_id,
                 "vsz": train_number,
                 "zoom": False,
                 "csakkozlekedovonat": True,
             },
         }
 
+        # Synchronous logic (as before)
         response = requests.post(self.BASE_URL, headers=self.headers, json=json_data)
         if response.status_code != 200:
             logger.error(
@@ -138,6 +143,46 @@ class TrainDataFetcher:
 
         html = response.json()["d"]["result"]["html"]
         return {"elvira_id": elvira_id, "train_number": train_number, "html": html}
+
+    async def _fetch_train_details_async(
+        self,
+        client: httpx.AsyncClient,
+        elvira_id: str,
+        train_number: str,
+    ) -> Optional[Dict[str, Any]]:
+        async with self.semaphore:
+            json_data = {
+                "a": "TRAIN",
+                "jo": {
+                    "vsz": train_number,
+                    "zoom": False,
+                    "csakkozlekedovonat": True,
+                },
+            }
+
+            for i in range(3):
+                try:
+                    if i > 0:
+                        logger.warning(
+                            f"Retrying train details fetch for {train_number} ({i})"
+                        )
+                    response = await client.post(self.BASE_URL, json=json_data)
+                    break
+                except Exception as e:
+                    logger.error(f"Error fetching details for {train_number}: {e}")
+                    await asyncio.sleep(1)
+            else:
+                return None
+
+            if response.status_code != 200:
+                logger.error(
+                    f"Failed to fetch train details async for {train_number}: {response.status_code}"
+                )
+                return None
+
+            data = response.json()
+            html = data["d"]["result"]["html"]
+            return {"elvira_id": elvira_id, "train_number": train_number, "html": html}
 
 
 class ScheduleParser:
@@ -561,7 +606,50 @@ class HungarianRailwayScraperPipeline:
 
         return train_locations_df, parsed_train_schedules
 
-    def run(self, limit: Optional[int] = None, save_format: str = "parquet") -> None:
+    async def fetch_and_parse_all_trains_async(
+        self, limit: Optional[int] = None
+    ) -> Tuple[pd.DataFrame, List[Dict[str, Any]]]:
+        train_locations_df = self.train_data_fetcher.fetch_train_locations()
+        if train_locations_df.empty:
+            logger.error("No train locations fetched.")
+            return pd.DataFrame(), []
+
+        train_list = train_locations_df[["elvira_id", "train_number"]].to_dict(
+            orient="records"
+        )
+        if limit is not None:
+            train_list = train_list[:limit]
+
+        async with httpx.AsyncClient(headers=self.train_data_fetcher.headers) as client:
+            tasks = [
+                self.train_data_fetcher._fetch_train_details_async(
+                    client, t["elvira_id"], t["train_number"]
+                )
+                for t in train_list
+            ]
+
+            train_details = await tqdm_asyncio.gather(*tasks)
+
+        train_details = [d for d in train_details if d is not None]
+
+        parsed_train_schedules = []
+        for details in train_details:
+            parsed = self.schedule_parser.parse_schedule_table(**details)
+            if not parsed["data"].empty:
+                parsed_train_schedules.append(parsed)
+            else:
+                logger.warning(
+                    f"Parsed schedule for train {details['train_number']} is empty."
+                )
+
+        return train_locations_df, parsed_train_schedules
+
+    def run(
+        self,
+        limit: Optional[int] = None,
+        save_format: str = "parquet",
+        async_mode: bool = False,
+    ) -> None:
         """
         Main workflow for scraping MÁV train data:
         1. Fetch and parse train data.
@@ -569,13 +657,21 @@ class HungarianRailwayScraperPipeline:
 
         :param limit: Optional limit on the number of trains to process.
         :param save_format: The format to save the results in, either "parquet" or "csv".
+        :param async_mode: If True, run the pipeline asynchronously. If False, run it synchronously.
         """
         try:
             logger.info("Starting Hungarian Railway Data Pipeline")
 
-            train_locations_df, parsed_train_schedules = (
-                self.fetch_and_parse_all_trains(limit)
-            )
+            if async_mode:
+                # Run the async pipeline
+                train_locations_df, parsed_train_schedules = asyncio.run(
+                    self.fetch_and_parse_all_trains_async(limit)
+                )
+            else:
+                # Run the synchronous pipeline
+                train_locations_df, parsed_train_schedules = (
+                    self.fetch_and_parse_all_trains(limit)
+                )
 
             if train_locations_df.empty:
                 logger.error("No data to process. Exiting.")
@@ -605,7 +701,7 @@ class HungarianRailwayScraperPipeline:
 if __name__ == "__main__":
     pipeline = HungarianRailwayScraperPipeline()
     pipeline.run(
-        limit=None, save_format="parquet"
+        limit=None, save_format="parquet", async_mode=True
     )  # Set `limit=None` to process all trains
 
 # %%
