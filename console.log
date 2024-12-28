@@ -5201,3 +5201,216 @@
 2024-12-28 22:13:14.901 | INFO     | mav_scraper.slender.slender:info:39 - 48346 train schedules saved to /home/runner/work/MAV-scraper/MAV-scraper/mav_scraper/data/parsed_train_schedules
 2024-12-28 22:13:14.901 | INFO     | mav_scraper.slender.slender:info:39 - Spot train locations saved to /home/runner/work/MAV-scraper/MAV-scraper/mav_scraper/data/spot_train_locations
 2024-12-28 22:13:15.463 | SUCCESS  | mav_scraper.slender.slender:success:35 - Data pipeline completed successfully
+2024-12-28 22:23:41.929 | INFO     | mav_scraper.slender.slender:info:39 - Starting Hungarian Railway Data Pipeline
+2024-12-28 22:23:50.744 | ERROR    | mav_scraper.slender.slender:error:52 - Error fetching details for 5513111: 
+2024-12-28 22:23:51.745 | WARNING  | mav_scraper.slender.slender:warning:46 - Retrying train details fetch for 5513111 (1)
+2024-12-28 22:23:56.948 | ERROR    | mav_scraper.slender.slender:error:52 - Error fetching details for 5513111: 
+2024-12-28 22:23:57.949 | WARNING  | mav_scraper.slender.slender:warning:46 - Retrying train details fetch for 5513111 (2)
+2024-12-28 22:24:03.746 | ERROR    | mav_scraper.slender.slender:error:52 - Error fetching details for 5513111: 
+2024-12-28 22:24:05.113 | WARNING  | mav_scraper.slender.slender:warning:46 - Parsed schedule for train 4339821 is empty.
+2024-12-28 22:24:05.483 | WARNING  | mav_scraper.slender.slender:warning:46 - Parsed schedule for train 439138 is empty.
+2024-12-28 22:24:05.497 | WARNING  | mav_scraper.slender.slender:warning:46 - Parsed schedule for train 439181 is empty.
+2024-12-28 22:24:05.539 | WARNING  | mav_scraper.slender.slender:warning:46 - Parsed schedule for train 439941 is empty.
+2024-12-28 22:24:18.120 | ERROR    | mav_scraper.slender.slender:error:52 - Error fetching route shape for 5513111: 
+2024-12-28 22:24:18.303 | ERROR    | mav_scraper.slender.slender:error:52 - Error fetching route shape for 556338: 
+2024-12-28 22:24:19.121 | WARNING  | mav_scraper.slender.slender:warning:46 - Retrying route shape fetch for 5513111 (1)
+2024-12-28 22:24:19.304 | WARNING  | mav_scraper.slender.slender:warning:46 - Retrying route shape fetch for 556338 (1)
+2024-12-28 22:24:24.792 | ERROR    | mav_scraper.slender.slender:error:52 - Error fetching route shape for 5513111: 
+2024-12-28 22:24:25.849 | ERROR    | mav_scraper.slender.slender:error:52 - Error fetching route shape for 556338: 
+2024-12-28 22:24:25.849 | WARNING  | mav_scraper.slender.slender:warning:46 - Retrying route shape fetch for 5513111 (2)
+2024-12-28 22:24:26.851 | WARNING  | mav_scraper.slender.slender:warning:46 - Retrying route shape fetch for 556338 (2)
+2024-12-28 22:24:32.512 | ERROR    | mav_scraper.slender.slender:error:52 - Error fetching route shape for 5513111: 
+2024-12-28 22:24:33.814 | ERROR    | mav_scraper.slender.slender:error:52 - Error parsing shape for train 5536668: object of type 'NoneType' has no len()
+2024-12-28 22:24:33.815 | WARNING  | mav_scraper.slender.slender:warning:46 - Parsed shape for train 5536668 is empty.
+2024-12-28 22:24:34.095 | INFO     | mav_scraper.slender.slender:info:39 - Replacing previously stored schedule for train_number=5510, elvira_id=8328063_241228 with the newer version.
+2024-12-28 22:24:34.177 | INFO     | mav_scraper.slender.slender:info:39 - Replacing previously stored schedule for train_number=55149, elvira_id=8018422_241228 with the newer version.
+2024-12-28 22:24:34.258 | INFO     | mav_scraper.slender.slender:info:39 - Replacing previously stored schedule for train_number=552171, elvira_id=7597280_241228 with the newer version.
+2024-12-28 22:24:34.338 | INFO     | mav_scraper.slender.slender:info:39 - Replacing previously stored schedule for train_number=552178, elvira_id=8327673_241228 with the newer version.
+2024-12-28 22:24:34.380 | INFO     | mav_scraper.slender.slender:info:39 - Adding new schedule for train_number=552181, elvira_id=7597284_241228.
+2024-12-28 22:24:34.460 | INFO     | mav_scraper.slender.slender:info:39 - Replacing previously stored schedule for train_number=552188, elvira_id=7597033_241228 with the newer version.
+2024-12-28 22:24:34.540 | INFO     | mav_scraper.slender.slender:info:39 - Replacing previously stored schedule for train_number=552361, elvira_id=7598117_241228 with the newer version.
+2024-12-28 22:24:34.620 | INFO     | mav_scraper.slender.slender:info:39 - Replacing previously stored schedule for train_number=552388, elvira_id=7596818_241228 with the newer version.
+2024-12-28 22:24:34.700 | INFO     | mav_scraper.slender.slender:info:39 - Replacing previously stored schedule for train_number=552398, elvira_id=7598088_241228 with the newer version.
+2024-12-28 22:24:34.780 | INFO     | mav_scraper.slender.slender:info:39 - Replacing previously stored schedule for train_number=552551, elvira_id=7598132_241228 with the newer version.
+2024-12-28 22:24:34.860 | INFO     | mav_scraper.slender.slender:info:39 - Replacing previously stored schedule for train_number=552588, elvira_id=7598124_241228 with the newer version.
+2024-12-28 22:24:34.941 | INFO     | mav_scraper.slender.slender:info:39 - Replacing previously stored schedule for train_number=552598, elvira_id=7598125_241228 with the newer version.
+2024-12-28 22:24:35.021 | INFO     | mav_scraper.slender.slender:info:39 - Replacing previously stored schedule for train_number=55261, elvira_id=8008926_241228 with the newer version.
+2024-12-28 22:24:35.101 | INFO     | mav_scraper.slender.slender:info:39 - Replacing previously stored schedule for train_number=552621, elvira_id=7617920_241228 with the newer version.
+2024-12-28 22:24:35.181 | INFO     | mav_scraper.slender.slender:info:39 - Replacing previously stored schedule for train_number=552638, elvira_id=7610131_241228 with the newer version.
+2024-12-28 22:24:35.261 | INFO     | mav_scraper.slender.slender:info:39 - Replacing previously stored schedule for train_number=552958, elvira_id=7582838_241228 with the newer version.
+2024-12-28 22:24:35.303 | INFO     | mav_scraper.slender.slender:info:39 - Adding new schedule for train_number=552978, elvira_id=7582840_241228.
+2024-12-28 22:24:35.383 | INFO     | mav_scraper.slender.slender:info:39 - Replacing previously stored schedule for train_number=553061, elvira_id=7619111_241228 with the newer version.
+2024-12-28 22:24:35.464 | INFO     | mav_scraper.slender.slender:info:39 - Replacing previously stored schedule for train_number=553078, elvira_id=7617923_241228 with the newer version.
+2024-12-28 22:24:35.544 | INFO     | mav_scraper.slender.slender:info:39 - Replacing previously stored schedule for train_number=5532258, elvira_id=7597031_241228 with the newer version.
+2024-12-28 22:24:35.625 | INFO     | mav_scraper.slender.slender:info:39 - Replacing previously stored schedule for train_number=553261, elvira_id=8327478_241228 with the newer version.
+2024-12-28 22:24:35.704 | INFO     | mav_scraper.slender.slender:info:39 - Replacing previously stored schedule for train_number=5533102, elvira_id=7597369_241228 with the newer version.
+2024-12-28 22:24:35.784 | INFO     | mav_scraper.slender.slender:info:39 - Replacing previously stored schedule for train_number=5533103, elvira_id=7597573_241228 with the newer version.
+2024-12-28 22:24:35.863 | INFO     | mav_scraper.slender.slender:info:39 - Replacing previously stored schedule for train_number=5533104, elvira_id=7597372_241228 with the newer version.
+2024-12-28 22:24:35.943 | INFO     | mav_scraper.slender.slender:info:39 - Replacing previously stored schedule for train_number=553351, elvira_id=7598860_241228 with the newer version.
+2024-12-28 22:24:36.023 | INFO     | mav_scraper.slender.slender:info:39 - Replacing previously stored schedule for train_number=553361, elvira_id=7598751_241228 with the newer version.
+2024-12-28 22:24:36.104 | INFO     | mav_scraper.slender.slender:info:39 - Replacing previously stored schedule for train_number=553368, elvira_id=7598708_241228 with the newer version.
+2024-12-28 22:24:36.184 | INFO     | mav_scraper.slender.slender:info:39 - Replacing previously stored schedule for train_number=553378, elvira_id=7598688_241228 with the newer version.
+2024-12-28 22:24:36.263 | INFO     | mav_scraper.slender.slender:info:39 - Replacing previously stored schedule for train_number=55341, elvira_id=8008931_241228 with the newer version.
+2024-12-28 22:24:36.343 | INFO     | mav_scraper.slender.slender:info:39 - Replacing previously stored schedule for train_number=5534431, elvira_id=7600284_241228 with the newer version.
+2024-12-28 22:24:36.422 | INFO     | mav_scraper.slender.slender:info:39 - Replacing previously stored schedule for train_number=55347, elvira_id=8018483_241228 with the newer version.
+2024-12-28 22:24:36.502 | INFO     | mav_scraper.slender.slender:info:39 - Replacing previously stored schedule for train_number=5534718, elvira_id=7608986_241228 with the newer version.
+2024-12-28 22:24:36.582 | INFO     | mav_scraper.slender.slender:info:39 - Replacing previously stored schedule for train_number=5535721, elvira_id=7621021_241228 with the newer version.
+2024-12-28 22:24:36.662 | INFO     | mav_scraper.slender.slender:info:39 - Replacing previously stored schedule for train_number=5536028, elvira_id=7621996_241228 with the newer version.
+2024-12-28 22:24:36.742 | INFO     | mav_scraper.slender.slender:info:39 - Replacing previously stored schedule for train_number=5536441, elvira_id=7597388_241228 with the newer version.
+2024-12-28 22:24:36.821 | INFO     | mav_scraper.slender.slender:info:39 - Replacing previously stored schedule for train_number=5536668, elvira_id=7947140_241228 with the newer version.
+2024-12-28 22:24:36.901 | INFO     | mav_scraper.slender.slender:info:39 - Replacing previously stored schedule for train_number=5536738, elvira_id=7623355_241228 with the newer version.
+2024-12-28 22:24:36.980 | INFO     | mav_scraper.slender.slender:info:39 - Replacing previously stored schedule for train_number=5537038, elvira_id=7597291_241228 with the newer version.
+2024-12-28 22:24:37.060 | INFO     | mav_scraper.slender.slender:info:39 - Replacing previously stored schedule for train_number=5538228, elvira_id=7598694_241228 with the newer version.
+2024-12-28 22:24:37.139 | INFO     | mav_scraper.slender.slender:info:39 - Replacing previously stored schedule for train_number=5538828, elvira_id=7597540_241228 with the newer version.
+2024-12-28 22:24:37.220 | INFO     | mav_scraper.slender.slender:info:39 - Replacing previously stored schedule for train_number=4339038, elvira_id=7576979_241228 with the newer version.
+2024-12-28 22:24:37.299 | INFO     | mav_scraper.slender.slender:info:39 - Replacing previously stored schedule for train_number=5539558, elvira_id=7599678_241228 with the newer version.
+2024-12-28 22:24:37.379 | INFO     | mav_scraper.slender.slender:info:39 - Replacing previously stored schedule for train_number=554238, elvira_id=7622540_241228 with the newer version.
+2024-12-28 22:24:37.459 | INFO     | mav_scraper.slender.slender:info:39 - Replacing previously stored schedule for train_number=554241, elvira_id=7623012_241228 with the newer version.
+2024-12-28 22:24:37.539 | INFO     | mav_scraper.slender.slender:info:39 - Replacing previously stored schedule for train_number=55462, elvira_id=8021204_241228 with the newer version.
+2024-12-28 22:24:37.620 | INFO     | mav_scraper.slender.slender:info:39 - Replacing previously stored schedule for train_number=554758, elvira_id=7834754_241228 with the newer version.
+2024-12-28 22:24:37.700 | INFO     | mav_scraper.slender.slender:info:39 - Replacing previously stored schedule for train_number=554768, elvira_id=7834755_241228 with the newer version.
+2024-12-28 22:24:37.780 | INFO     | mav_scraper.slender.slender:info:39 - Replacing previously stored schedule for train_number=554941, elvira_id=7600038_241228 with the newer version.
+2024-12-28 22:24:37.861 | INFO     | mav_scraper.slender.slender:info:39 - Replacing previously stored schedule for train_number=554951, elvira_id=7600045_241228 with the newer version.
+2024-12-28 22:24:37.942 | INFO     | mav_scraper.slender.slender:info:39 - Replacing previously stored schedule for train_number=554958, elvira_id=7600241_241228 with the newer version.
+2024-12-28 22:24:37.983 | INFO     | mav_scraper.slender.slender:info:39 - Adding new schedule for train_number=554968, elvira_id=7600242_241228.
+2024-12-28 22:24:38.064 | INFO     | mav_scraper.slender.slender:info:39 - Replacing previously stored schedule for train_number=555008, elvira_id=7617863_241228 with the newer version.
+2024-12-28 22:24:38.144 | INFO     | mav_scraper.slender.slender:info:39 - Replacing previously stored schedule for train_number=555011, elvira_id=7624125_241228 with the newer version.
+2024-12-28 22:24:38.225 | INFO     | mav_scraper.slender.slender:info:39 - Replacing previously stored schedule for train_number=555018, elvira_id=7617886_241228 with the newer version.
+2024-12-28 22:24:38.305 | INFO     | mav_scraper.slender.slender:info:39 - Replacing previously stored schedule for train_number=555021, elvira_id=7624095_241228 with the newer version.
+2024-12-28 22:24:38.385 | INFO     | mav_scraper.slender.slender:info:39 - Replacing previously stored schedule for train_number=555048, elvira_id=7617861_241228 with the newer version.
+2024-12-28 22:24:38.465 | INFO     | mav_scraper.slender.slender:info:39 - Replacing previously stored schedule for train_number=555121, elvira_id=7698674_241228 with the newer version.
+2024-12-28 22:24:38.545 | INFO     | mav_scraper.slender.slender:info:39 - Replacing previously stored schedule for train_number=555158, elvira_id=7598062_241228 with the newer version.
+2024-12-28 22:24:38.625 | INFO     | mav_scraper.slender.slender:info:39 - Replacing previously stored schedule for train_number=555338, elvira_id=7622414_241228 with the newer version.
+2024-12-28 22:24:38.706 | INFO     | mav_scraper.slender.slender:info:39 - Replacing previously stored schedule for train_number=555438, elvira_id=8330510_241228 with the newer version.
+2024-12-28 22:24:38.786 | INFO     | mav_scraper.slender.slender:info:39 - Replacing previously stored schedule for train_number=555758, elvira_id=7619396_241228 with the newer version.
+2024-12-28 22:24:38.866 | INFO     | mav_scraper.slender.slender:info:39 - Replacing previously stored schedule for train_number=555831, elvira_id=7583355_241228 with the newer version.
+2024-12-28 22:24:38.947 | INFO     | mav_scraper.slender.slender:info:39 - Replacing previously stored schedule for train_number=555848, elvira_id=7583338_241228 with the newer version.
+2024-12-28 22:24:39.027 | INFO     | mav_scraper.slender.slender:info:39 - Replacing previously stored schedule for train_number=55586, elvira_id=7623127_241228 with the newer version.
+2024-12-28 22:24:39.107 | INFO     | mav_scraper.slender.slender:info:39 - Replacing previously stored schedule for train_number=556008, elvira_id=7622968_241228 with the newer version.
+2024-12-28 22:24:39.188 | INFO     | mav_scraper.slender.slender:info:39 - Replacing previously stored schedule for train_number=556088, elvira_id=7622969_241228 with the newer version.
+2024-12-28 22:24:39.268 | INFO     | mav_scraper.slender.slender:info:39 - Replacing previously stored schedule for train_number=556098, elvira_id=7622970_241228 with the newer version.
+2024-12-28 22:24:39.348 | INFO     | mav_scraper.slender.slender:info:39 - Replacing previously stored schedule for train_number=556111, elvira_id=7623124_241228 with the newer version.
+2024-12-28 22:24:39.428 | INFO     | mav_scraper.slender.slender:info:39 - Replacing previously stored schedule for train_number=556138, elvira_id=7622966_241228 with the newer version.
+2024-12-28 22:24:39.512 | INFO     | mav_scraper.slender.slender:info:39 - Replacing previously stored schedule for train_number=556238, elvira_id=7622965_241228 with the newer version.
+2024-12-28 22:24:39.591 | INFO     | mav_scraper.slender.slender:info:39 - Replacing previously stored schedule for train_number=55628, elvira_id=7622967_241228 with the newer version.
+2024-12-28 22:24:39.672 | INFO     | mav_scraper.slender.slender:info:39 - Replacing previously stored schedule for train_number=556338, elvira_id=7621438_241228 with the newer version.
+2024-12-28 22:24:39.752 | INFO     | mav_scraper.slender.slender:info:39 - Replacing previously stored schedule for train_number=556641, elvira_id=7609123_241228 with the newer version.
+2024-12-28 22:24:39.833 | INFO     | mav_scraper.slender.slender:info:39 - Replacing previously stored schedule for train_number=556648, elvira_id=7609109_241228 with the newer version.
+2024-12-28 22:24:39.914 | INFO     | mav_scraper.slender.slender:info:39 - Replacing previously stored schedule for train_number=557028, elvira_id=7964397_241228 with the newer version.
+2024-12-28 22:24:39.994 | INFO     | mav_scraper.slender.slender:info:39 - Replacing previously stored schedule for train_number=557238, elvira_id=7599592_241228 with the newer version.
+2024-12-28 22:24:40.074 | INFO     | mav_scraper.slender.slender:info:39 - Replacing previously stored schedule for train_number=557438, elvira_id=7596888_241228 with the newer version.
+2024-12-28 22:24:40.154 | INFO     | mav_scraper.slender.slender:info:39 - Replacing previously stored schedule for train_number=557451, elvira_id=7597236_241228 with the newer version.
+2024-12-28 22:24:40.234 | INFO     | mav_scraper.slender.slender:info:39 - Replacing previously stored schedule for train_number=557751, elvira_id=7834746_241228 with the newer version.
+2024-12-28 22:24:40.315 | INFO     | mav_scraper.slender.slender:info:39 - Replacing previously stored schedule for train_number=557758, elvira_id=7834714_241228 with the newer version.
+2024-12-28 22:24:40.395 | INFO     | mav_scraper.slender.slender:info:39 - Replacing previously stored schedule for train_number=558511, elvira_id=7621365_241228 with the newer version.
+2024-12-28 22:24:40.474 | INFO     | mav_scraper.slender.slender:info:39 - Replacing previously stored schedule for train_number=55871, elvira_id=7621041_241228 with the newer version.
+2024-12-28 22:24:40.554 | INFO     | mav_scraper.slender.slender:info:39 - Replacing previously stored schedule for train_number=558738, elvira_id=7620632_241228 with the newer version.
+2024-12-28 22:24:40.634 | INFO     | mav_scraper.slender.slender:info:39 - Replacing previously stored schedule for train_number=558848, elvira_id=7621409_241228 with the newer version.
+2024-12-28 22:24:40.715 | INFO     | mav_scraper.slender.slender:info:39 - Replacing previously stored schedule for train_number=559068, elvira_id=8330192_241228 with the newer version.
+2024-12-28 22:24:40.794 | INFO     | mav_scraper.slender.slender:info:39 - Replacing previously stored schedule for train_number=55918, elvira_id=8485631_241228 with the newer version.
+2024-12-28 22:24:40.874 | INFO     | mav_scraper.slender.slender:info:39 - Replacing previously stored schedule for train_number=559221, elvira_id=7599920_241228 with the newer version.
+2024-12-28 22:24:40.958 | INFO     | mav_scraper.slender.slender:info:39 - Replacing previously stored schedule for train_number=559248, elvira_id=7599891_241228 with the newer version.
+2024-12-28 22:24:41.037 | INFO     | mav_scraper.slender.slender:info:39 - Replacing previously stored schedule for train_number=559458, elvira_id=7600238_241228 with the newer version.
+2024-12-28 22:24:41.118 | INFO     | mav_scraper.slender.slender:info:39 - Replacing previously stored schedule for train_number=559758, elvira_id=7608894_241228 with the newer version.
+2024-12-28 22:24:41.198 | INFO     | mav_scraper.slender.slender:info:39 - Replacing previously stored schedule for train_number=439838, elvira_id=7621049_241228 with the newer version.
+2024-12-28 22:24:41.278 | INFO     | mav_scraper.slender.slender:info:39 - Replacing previously stored schedule for train_number=439958, elvira_id=7573076_241228 with the newer version.
+2024-12-28 22:24:41.312 | INFO     | mav_scraper.slender.slender:info:39 - Schedule update complete: 3 new schedule(s) added, 89 existing schedule(s) replaced.
+2024-12-28 22:24:41.335 | INFO     | mav_scraper.slender.slender:info:39 - Replacing previously stored shape for train_number=5510, elvira_id=8328063_241228 with the newer version.
+2024-12-28 22:24:41.342 | INFO     | mav_scraper.slender.slender:info:39 - Replacing previously stored shape for train_number=55149, elvira_id=8018422_241228 with the newer version.
+2024-12-28 22:24:41.350 | INFO     | mav_scraper.slender.slender:info:39 - Replacing previously stored shape for train_number=552171, elvira_id=7597280_241228 with the newer version.
+2024-12-28 22:24:41.358 | INFO     | mav_scraper.slender.slender:info:39 - Replacing previously stored shape for train_number=552178, elvira_id=8327673_241228 with the newer version.
+2024-12-28 22:24:41.364 | INFO     | mav_scraper.slender.slender:info:39 - Adding new shape for train_number=552181, elvira_id=7597284_241228.
+2024-12-28 22:24:41.372 | INFO     | mav_scraper.slender.slender:info:39 - Replacing previously stored shape for train_number=552188, elvira_id=7597033_241228 with the newer version.
+2024-12-28 22:24:41.380 | INFO     | mav_scraper.slender.slender:info:39 - Replacing previously stored shape for train_number=552361, elvira_id=7598117_241228 with the newer version.
+2024-12-28 22:24:41.387 | INFO     | mav_scraper.slender.slender:info:39 - Replacing previously stored shape for train_number=552388, elvira_id=7596818_241228 with the newer version.
+2024-12-28 22:24:41.395 | INFO     | mav_scraper.slender.slender:info:39 - Replacing previously stored shape for train_number=552398, elvira_id=7598088_241228 with the newer version.
+2024-12-28 22:24:41.402 | INFO     | mav_scraper.slender.slender:info:39 - Replacing previously stored shape for train_number=552551, elvira_id=7598132_241228 with the newer version.
+2024-12-28 22:24:41.410 | INFO     | mav_scraper.slender.slender:info:39 - Replacing previously stored shape for train_number=552588, elvira_id=7598124_241228 with the newer version.
+2024-12-28 22:24:41.417 | INFO     | mav_scraper.slender.slender:info:39 - Replacing previously stored shape for train_number=552598, elvira_id=7598125_241228 with the newer version.
+2024-12-28 22:24:41.425 | INFO     | mav_scraper.slender.slender:info:39 - Replacing previously stored shape for train_number=55261, elvira_id=8008926_241228 with the newer version.
+2024-12-28 22:24:41.433 | INFO     | mav_scraper.slender.slender:info:39 - Replacing previously stored shape for train_number=552621, elvira_id=7617920_241228 with the newer version.
+2024-12-28 22:24:41.440 | INFO     | mav_scraper.slender.slender:info:39 - Replacing previously stored shape for train_number=552638, elvira_id=7610131_241228 with the newer version.
+2024-12-28 22:24:41.447 | INFO     | mav_scraper.slender.slender:info:39 - Replacing previously stored shape for train_number=552958, elvira_id=7582838_241228 with the newer version.
+2024-12-28 22:24:41.454 | INFO     | mav_scraper.slender.slender:info:39 - Adding new shape for train_number=552978, elvira_id=7582840_241228.
+2024-12-28 22:24:41.461 | INFO     | mav_scraper.slender.slender:info:39 - Replacing previously stored shape for train_number=553061, elvira_id=7619111_241228 with the newer version.
+2024-12-28 22:24:41.468 | INFO     | mav_scraper.slender.slender:info:39 - Replacing previously stored shape for train_number=553078, elvira_id=7617923_241228 with the newer version.
+2024-12-28 22:24:41.476 | INFO     | mav_scraper.slender.slender:info:39 - Replacing previously stored shape for train_number=5532258, elvira_id=7597031_241228 with the newer version.
+2024-12-28 22:24:41.483 | INFO     | mav_scraper.slender.slender:info:39 - Replacing previously stored shape for train_number=553261, elvira_id=8327478_241228 with the newer version.
+2024-12-28 22:24:41.490 | INFO     | mav_scraper.slender.slender:info:39 - Replacing previously stored shape for train_number=5533102, elvira_id=7597369_241228 with the newer version.
+2024-12-28 22:24:41.497 | INFO     | mav_scraper.slender.slender:info:39 - Replacing previously stored shape for train_number=5533103, elvira_id=7597573_241228 with the newer version.
+2024-12-28 22:24:41.505 | INFO     | mav_scraper.slender.slender:info:39 - Replacing previously stored shape for train_number=5533104, elvira_id=7597372_241228 with the newer version.
+2024-12-28 22:24:41.512 | INFO     | mav_scraper.slender.slender:info:39 - Replacing previously stored shape for train_number=553351, elvira_id=7598860_241228 with the newer version.
+2024-12-28 22:24:41.519 | INFO     | mav_scraper.slender.slender:info:39 - Replacing previously stored shape for train_number=553361, elvira_id=7598751_241228 with the newer version.
+2024-12-28 22:24:41.527 | INFO     | mav_scraper.slender.slender:info:39 - Replacing previously stored shape for train_number=553368, elvira_id=7598708_241228 with the newer version.
+2024-12-28 22:24:41.534 | INFO     | mav_scraper.slender.slender:info:39 - Replacing previously stored shape for train_number=553378, elvira_id=7598688_241228 with the newer version.
+2024-12-28 22:24:41.541 | INFO     | mav_scraper.slender.slender:info:39 - Replacing previously stored shape for train_number=55341, elvira_id=8008931_241228 with the newer version.
+2024-12-28 22:24:41.548 | INFO     | mav_scraper.slender.slender:info:39 - Replacing previously stored shape for train_number=5534431, elvira_id=7600284_241228 with the newer version.
+2024-12-28 22:24:41.555 | INFO     | mav_scraper.slender.slender:info:39 - Replacing previously stored shape for train_number=55347, elvira_id=8018483_241228 with the newer version.
+2024-12-28 22:24:41.563 | INFO     | mav_scraper.slender.slender:info:39 - Replacing previously stored shape for train_number=5534718, elvira_id=7608986_241228 with the newer version.
+2024-12-28 22:24:41.570 | INFO     | mav_scraper.slender.slender:info:39 - Replacing previously stored shape for train_number=5535721, elvira_id=7621021_241228 with the newer version.
+2024-12-28 22:24:41.577 | INFO     | mav_scraper.slender.slender:info:39 - Replacing previously stored shape for train_number=5536028, elvira_id=7621996_241228 with the newer version.
+2024-12-28 22:24:41.584 | INFO     | mav_scraper.slender.slender:info:39 - Replacing previously stored shape for train_number=5536441, elvira_id=7597388_241228 with the newer version.
+2024-12-28 22:24:41.591 | INFO     | mav_scraper.slender.slender:info:39 - Replacing previously stored shape for train_number=5536738, elvira_id=7623355_241228 with the newer version.
+2024-12-28 22:24:41.598 | INFO     | mav_scraper.slender.slender:info:39 - Replacing previously stored shape for train_number=5537038, elvira_id=7597291_241228 with the newer version.
+2024-12-28 22:24:41.605 | INFO     | mav_scraper.slender.slender:info:39 - Replacing previously stored shape for train_number=5538228, elvira_id=7598694_241228 with the newer version.
+2024-12-28 22:24:41.612 | INFO     | mav_scraper.slender.slender:info:39 - Replacing previously stored shape for train_number=5538828, elvira_id=7597540_241228 with the newer version.
+2024-12-28 22:24:41.619 | INFO     | mav_scraper.slender.slender:info:39 - Replacing previously stored shape for train_number=4339038, elvira_id=7576979_241228 with the newer version.
+2024-12-28 22:24:41.626 | INFO     | mav_scraper.slender.slender:info:39 - Replacing previously stored shape for train_number=5539558, elvira_id=7599678_241228 with the newer version.
+2024-12-28 22:24:41.633 | INFO     | mav_scraper.slender.slender:info:39 - Replacing previously stored shape for train_number=4339821, elvira_id=7609251_241228 with the newer version.
+2024-12-28 22:24:41.640 | INFO     | mav_scraper.slender.slender:info:39 - Replacing previously stored shape for train_number=554238, elvira_id=7622540_241228 with the newer version.
+2024-12-28 22:24:41.647 | INFO     | mav_scraper.slender.slender:info:39 - Replacing previously stored shape for train_number=554241, elvira_id=7623012_241228 with the newer version.
+2024-12-28 22:24:41.654 | INFO     | mav_scraper.slender.slender:info:39 - Replacing previously stored shape for train_number=55462, elvira_id=8021204_241228 with the newer version.
+2024-12-28 22:24:41.661 | INFO     | mav_scraper.slender.slender:info:39 - Replacing previously stored shape for train_number=554758, elvira_id=7834754_241228 with the newer version.
+2024-12-28 22:24:41.667 | INFO     | mav_scraper.slender.slender:info:39 - Replacing previously stored shape for train_number=554768, elvira_id=7834755_241228 with the newer version.
+2024-12-28 22:24:41.674 | INFO     | mav_scraper.slender.slender:info:39 - Replacing previously stored shape for train_number=554941, elvira_id=7600038_241228 with the newer version.
+2024-12-28 22:24:41.681 | INFO     | mav_scraper.slender.slender:info:39 - Replacing previously stored shape for train_number=554951, elvira_id=7600045_241228 with the newer version.
+2024-12-28 22:24:41.688 | INFO     | mav_scraper.slender.slender:info:39 - Replacing previously stored shape for train_number=554958, elvira_id=7600241_241228 with the newer version.
+2024-12-28 22:24:41.693 | INFO     | mav_scraper.slender.slender:info:39 - Adding new shape for train_number=554968, elvira_id=7600242_241228.
+2024-12-28 22:24:41.700 | INFO     | mav_scraper.slender.slender:info:39 - Replacing previously stored shape for train_number=555008, elvira_id=7617863_241228 with the newer version.
+2024-12-28 22:24:41.707 | INFO     | mav_scraper.slender.slender:info:39 - Replacing previously stored shape for train_number=555011, elvira_id=7624125_241228 with the newer version.
+2024-12-28 22:24:41.713 | INFO     | mav_scraper.slender.slender:info:39 - Replacing previously stored shape for train_number=555018, elvira_id=7617886_241228 with the newer version.
+2024-12-28 22:24:41.720 | INFO     | mav_scraper.slender.slender:info:39 - Replacing previously stored shape for train_number=555021, elvira_id=7624095_241228 with the newer version.
+2024-12-28 22:24:41.727 | INFO     | mav_scraper.slender.slender:info:39 - Replacing previously stored shape for train_number=555048, elvira_id=7617861_241228 with the newer version.
+2024-12-28 22:24:41.733 | INFO     | mav_scraper.slender.slender:info:39 - Replacing previously stored shape for train_number=555121, elvira_id=7698674_241228 with the newer version.
+2024-12-28 22:24:41.740 | INFO     | mav_scraper.slender.slender:info:39 - Replacing previously stored shape for train_number=555158, elvira_id=7598062_241228 with the newer version.
+2024-12-28 22:24:41.746 | INFO     | mav_scraper.slender.slender:info:39 - Replacing previously stored shape for train_number=555338, elvira_id=7622414_241228 with the newer version.
+2024-12-28 22:24:41.753 | INFO     | mav_scraper.slender.slender:info:39 - Replacing previously stored shape for train_number=555438, elvira_id=8330510_241228 with the newer version.
+2024-12-28 22:24:41.760 | INFO     | mav_scraper.slender.slender:info:39 - Replacing previously stored shape for train_number=555758, elvira_id=7619396_241228 with the newer version.
+2024-12-28 22:24:41.766 | INFO     | mav_scraper.slender.slender:info:39 - Replacing previously stored shape for train_number=555831, elvira_id=7583355_241228 with the newer version.
+2024-12-28 22:24:41.773 | INFO     | mav_scraper.slender.slender:info:39 - Replacing previously stored shape for train_number=555848, elvira_id=7583338_241228 with the newer version.
+2024-12-28 22:24:41.779 | INFO     | mav_scraper.slender.slender:info:39 - Replacing previously stored shape for train_number=55586, elvira_id=7623127_241228 with the newer version.
+2024-12-28 22:24:41.786 | INFO     | mav_scraper.slender.slender:info:39 - Replacing previously stored shape for train_number=556008, elvira_id=7622968_241228 with the newer version.
+2024-12-28 22:24:41.792 | INFO     | mav_scraper.slender.slender:info:39 - Replacing previously stored shape for train_number=556088, elvira_id=7622969_241228 with the newer version.
+2024-12-28 22:24:41.799 | INFO     | mav_scraper.slender.slender:info:39 - Replacing previously stored shape for train_number=556098, elvira_id=7622970_241228 with the newer version.
+2024-12-28 22:24:41.805 | INFO     | mav_scraper.slender.slender:info:39 - Replacing previously stored shape for train_number=556111, elvira_id=7623124_241228 with the newer version.
+2024-12-28 22:24:41.812 | INFO     | mav_scraper.slender.slender:info:39 - Replacing previously stored shape for train_number=556138, elvira_id=7622966_241228 with the newer version.
+2024-12-28 22:24:41.818 | INFO     | mav_scraper.slender.slender:info:39 - Replacing previously stored shape for train_number=556238, elvira_id=7622965_241228 with the newer version.
+2024-12-28 22:24:41.824 | INFO     | mav_scraper.slender.slender:info:39 - Replacing previously stored shape for train_number=55628, elvira_id=7622967_241228 with the newer version.
+2024-12-28 22:24:41.831 | INFO     | mav_scraper.slender.slender:info:39 - Replacing previously stored shape for train_number=556338, elvira_id=7621438_241228 with the newer version.
+2024-12-28 22:24:41.837 | INFO     | mav_scraper.slender.slender:info:39 - Replacing previously stored shape for train_number=556641, elvira_id=7609123_241228 with the newer version.
+2024-12-28 22:24:41.843 | INFO     | mav_scraper.slender.slender:info:39 - Replacing previously stored shape for train_number=556648, elvira_id=7609109_241228 with the newer version.
+2024-12-28 22:24:41.850 | INFO     | mav_scraper.slender.slender:info:39 - Replacing previously stored shape for train_number=557028, elvira_id=7964397_241228 with the newer version.
+2024-12-28 22:24:41.856 | INFO     | mav_scraper.slender.slender:info:39 - Replacing previously stored shape for train_number=557238, elvira_id=7599592_241228 with the newer version.
+2024-12-28 22:24:41.862 | INFO     | mav_scraper.slender.slender:info:39 - Replacing previously stored shape for train_number=557438, elvira_id=7596888_241228 with the newer version.
+2024-12-28 22:24:41.869 | INFO     | mav_scraper.slender.slender:info:39 - Replacing previously stored shape for train_number=557451, elvira_id=7597236_241228 with the newer version.
+2024-12-28 22:24:41.875 | INFO     | mav_scraper.slender.slender:info:39 - Replacing previously stored shape for train_number=557751, elvira_id=7834746_241228 with the newer version.
+2024-12-28 22:24:41.881 | INFO     | mav_scraper.slender.slender:info:39 - Replacing previously stored shape for train_number=557758, elvira_id=7834714_241228 with the newer version.
+2024-12-28 22:24:41.887 | INFO     | mav_scraper.slender.slender:info:39 - Replacing previously stored shape for train_number=558511, elvira_id=7621365_241228 with the newer version.
+2024-12-28 22:24:41.894 | INFO     | mav_scraper.slender.slender:info:39 - Replacing previously stored shape for train_number=55871, elvira_id=7621041_241228 with the newer version.
+2024-12-28 22:24:41.900 | INFO     | mav_scraper.slender.slender:info:39 - Replacing previously stored shape for train_number=558738, elvira_id=7620632_241228 with the newer version.
+2024-12-28 22:24:41.906 | INFO     | mav_scraper.slender.slender:info:39 - Replacing previously stored shape for train_number=558848, elvira_id=7621409_241228 with the newer version.
+2024-12-28 22:24:41.912 | INFO     | mav_scraper.slender.slender:info:39 - Replacing previously stored shape for train_number=559068, elvira_id=8330192_241228 with the newer version.
+2024-12-28 22:24:41.919 | INFO     | mav_scraper.slender.slender:info:39 - Replacing previously stored shape for train_number=439138, elvira_id=7600391_241228 with the newer version.
+2024-12-28 22:24:41.925 | INFO     | mav_scraper.slender.slender:info:39 - Replacing previously stored shape for train_number=55918, elvira_id=8485631_241228 with the newer version.
+2024-12-28 22:24:41.931 | INFO     | mav_scraper.slender.slender:info:39 - Replacing previously stored shape for train_number=439181, elvira_id=7599672_241228 with the newer version.
+2024-12-28 22:24:41.937 | INFO     | mav_scraper.slender.slender:info:39 - Replacing previously stored shape for train_number=559221, elvira_id=7599920_241228 with the newer version.
+2024-12-28 22:24:41.943 | INFO     | mav_scraper.slender.slender:info:39 - Replacing previously stored shape for train_number=559248, elvira_id=7599891_241228 with the newer version.
+2024-12-28 22:24:41.949 | INFO     | mav_scraper.slender.slender:info:39 - Replacing previously stored shape for train_number=559458, elvira_id=7600238_241228 with the newer version.
+2024-12-28 22:24:41.955 | INFO     | mav_scraper.slender.slender:info:39 - Replacing previously stored shape for train_number=559758, elvira_id=7608894_241228 with the newer version.
+2024-12-28 22:24:41.961 | INFO     | mav_scraper.slender.slender:info:39 - Replacing previously stored shape for train_number=439838, elvira_id=7621049_241228 with the newer version.
+2024-12-28 22:24:41.967 | INFO     | mav_scraper.slender.slender:info:39 - Replacing previously stored shape for train_number=439941, elvira_id=7573150_241228 with the newer version.
+2024-12-28 22:24:41.973 | INFO     | mav_scraper.slender.slender:info:39 - Replacing previously stored shape for train_number=439958, elvira_id=7573076_241228 with the newer version.
+2024-12-28 22:24:41.974 | INFO     | mav_scraper.slender.slender:info:39 - Shape update complete: 3 new shape(s) added, 92 existing shape(s) replaced.
+2024-12-28 22:24:42.764 | INFO     | mav_scraper.slender.slender:info:39 - 48349 train schedules saved to /home/runner/work/MAV-scraper/MAV-scraper/mav_scraper/data/parsed_train_schedules
+2024-12-28 22:24:42.765 | INFO     | mav_scraper.slender.slender:info:39 - Spot train locations saved to /home/runner/work/MAV-scraper/MAV-scraper/mav_scraper/data/spot_train_locations
+2024-12-28 22:24:42.978 | SUCCESS  | mav_scraper.slender.slender:success:35 - Data pipeline completed successfully
