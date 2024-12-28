@@ -1573,6 +1573,21 @@ test = ["appdirs (==1.4.4)", "covdefaults (>=2.3)", "pytest (>=8.3.2)", "pytest-
 type = ["mypy (>=1.11.2)"]
 
 [[package]]
+name = "polyline"
+version = "2.0.2"
+description = "A Python implementation of Google's Encoded Polyline Algorithm Format."
+optional = false
+python-versions = ">=3.7"
+files = [
+    {file = "polyline-2.0.2-py3-none-any.whl", hash = "sha256:389655c893bdabf2863c6aaa49490cf83dcdcec86ae715f67044ee98be57bef5"},
+    {file = "polyline-2.0.2.tar.gz", hash = "sha256:10541e759c5fd51f746ee304e9af94744089a4055b6257b293b3afd1df64e369"},
+]
+
+[package.extras]
+dev = ["pylint (>=3.0.3,<3.1.0)", "pytest (>=7.0,<8.0)", "pytest-cov (>=4.0,<5.0)", "sphinx (>=5.3.0,<5.4.0)", "sphinx-rtd-theme (>=1.2.0,<1.3.0)", "toml (>=0.10.2,<0.11.0)"]
+publish = ["build (>=0.8,<1.0)", "twine (>=4.0,<5.0)"]
+
+[[package]]
 name = "prometheus-client"
 version = "0.21.1"
 description = "Python client for the Prometheus monitoring system."
@@ -2574,4 +2589,4 @@ testing = ["coverage[toml]", "zope.event", "zope.testing"]
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.11"
-content-hash = "22fb398cb8307b9638166f4cf1ab13be02cc3da42cf4faa7b86901992886f6e0"
+content-hash = "0e8a96ffce27781767d2d5d6d82a0a625a9ec33da38ef76c98e04e1820ae3941"

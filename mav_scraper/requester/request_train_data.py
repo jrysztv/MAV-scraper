@@ -7,6 +7,7 @@ from typing import Any, Dict, List, Optional, Tuple, Union
 
 import httpx
 import pandas as pd
+import polyline
 import requests
 from bs4 import BeautifulSoup
 from tqdm.asyncio import tqdm_asyncio
@@ -184,6 +185,50 @@ class TrainDataFetcher:
             html = data["d"]["result"]["html"]
             return {"elvira_id": elvira_id, "train_number": train_number, "html": html}
 
+    async def _fetch_train_route_shape_async(
+        self,
+        client: httpx.AsyncClient,
+        elvira_id: str,
+        train_number: str,
+    ) -> Optional[Dict[str, Any]]:
+        async with self.semaphore:
+            json_data = {
+                "a": "TRAIN",
+                "jo": {
+                    "v": elvira_id,
+                    "vsz": train_number,
+                    "zoom": True,
+                },
+            }
+
+            for i in range(3):
+                try:
+                    if i > 0:
+                        logger.warning(
+                            f"Retrying route shape fetch for {train_number} ({i})"
+                        )
+                    response = await client.post(self.BASE_URL, json=json_data)
+                    break
+                except Exception as e:
+                    logger.error(f"Error fetching route shape for {train_number}: {e}")
+                    await asyncio.sleep(1)
+            else:
+                return None
+
+            if response.status_code != 200:
+                logger.error(
+                    f"Failed to fetch route shape async for {train_number}: {response.status_code}"
+                )
+                return None
+
+            data = response.json()
+            shape = data["d"]["result"]["line"][0]["points"]
+            return {
+                "elvira_id": elvira_id,
+                "train_number": train_number,
+                "shape": shape,
+            }
+
 
 class ScheduleParser:
     """
@@ -291,6 +336,42 @@ class ScheduleParser:
         return scheduled, estimated
 
 
+class ShapeParser:
+    """
+    Handles parsing of route shape data fetched from MÁV and converting it into structured DataFrames.
+    """
+
+    @staticmethod
+    def parse_shape_data(
+        elvira_id: str, train_number: str, shape: List[Dict[str, str]]
+    ) -> Dict[str, Union[str, pd.DataFrame]]:
+        """
+        Parses the shape data for a given train.
+
+        :param elvira_id: The Elvira ID of the train.
+        :param train_number: The train number.
+        :param shape: List of dictionaries containing shape data.
+        :return: A dictionary with 'elvira_id', 'train_number', and 'data' (DataFrame).
+                 The DataFrame columns:
+                 [elvira_id, train_number, lat, lon, km]
+                 Returns an empty DataFrame if no shape data is found or on error.
+        """
+        try:
+            shape = polyline.decode(shape)
+            df = pd.DataFrame(shape, columns=["lat", "lon"])
+            df.insert(0, "elvira_id", elvira_id)
+            df.insert(1, "train_number", train_number)
+            return {"elvira_id": elvira_id, "train_number": train_number, "data": df}
+
+        except Exception as e:
+            logger.error(f"Error parsing shape for train {train_number}: {e}")
+            return {
+                "elvira_id": elvira_id,
+                "train_number": train_number,
+                "data": pd.DataFrame(),
+            }
+
+
 class DataStorageManager:
     """
     Handles storage of train schedules and locations in Parquet or CSV formats.
@@ -316,6 +397,9 @@ class DataStorageManager:
         self.spot_train_locations_dir = self.data_dir / "spot_train_locations"
         self.spot_train_locations_dir.mkdir(parents=True, exist_ok=True)
 
+        self.parsed_train_shapes_dir = self.data_dir / "parsed_train_shapes"
+        self.parsed_train_shapes_dir.mkdir(parents=True, exist_ok=True)
+
         # Parquet file paths
         self.stored_parsed_train_schedules_path = (
             self.parquet_store_dir / "parsed_train_schedules.parquet"
@@ -323,17 +407,22 @@ class DataStorageManager:
         self.stored_spot_train_locations_path = (
             self.parquet_store_dir / "spot_train_locations.parquet"
         )
+        self.stored_parsed_train_shapes_path = (
+            self.parquet_store_dir / "parsed_train_shapes.parquet"
+        )
 
     def store_as_parquet(
         self,
         parsed_train_schedules: List[Dict[str, Any]],
+        parsed_train_shapes: List[Dict[str, Any]],
         spot_train_locations: pd.DataFrame,
     ) -> None:
         """
-        Saves parsed train schedules and spot train locations to Parquet files, updating
+        Saves parsed train schedules, shapes, and spot train locations to Parquet files, updating
         existing storage if they exist.
 
         :param parsed_train_schedules: List of dictionaries containing parsed train schedule data.
+        :param parsed_train_shapes: List of dictionaries containing parsed train shape data.
         :param spot_train_locations: DataFrame containing current spot train locations.
         """
         if not parsed_train_schedules:
@@ -344,11 +433,25 @@ class DataStorageManager:
             [entry["data"] for entry in parsed_train_schedules], ignore_index=True
         )
 
+        if not parsed_train_shapes:
+            logger.warning("No parsed train shapes to store.")
+            return
+
+        parsed_train_shapes_df = pd.concat(
+            [entry["data"] for entry in parsed_train_shapes], ignore_index=True
+        )
+
         # Ensure initial parquet files are created if not present
-        self._initialize_parquet_files(spot_train_locations, parsed_train_schedules_df)
+        self._initialize_parquet_files(
+            spot_train_locations, parsed_train_schedules_df, parsed_train_shapes_df
+        )
 
         parsed_train_schedules_df = self._update_parsed_train_schedule_storage(
             parsed_train_schedules_df
+        )
+
+        parsed_train_shapes_df = self._update_parsed_train_shape_storage(
+            parsed_train_shapes_df
         )
 
         # Update spot train locations
@@ -359,6 +462,9 @@ class DataStorageManager:
         # Save updated data back to parquet
         parsed_train_schedules_df.to_parquet(
             self.stored_parsed_train_schedules_path, compression="snappy"
+        )
+        parsed_train_shapes_df.to_parquet(
+            self.stored_parsed_train_shapes_path, compression="snappy"
         )
         stored_spot_train_locations_df.to_parquet(
             self.stored_spot_train_locations_path, compression="snappy"
@@ -376,12 +482,14 @@ class DataStorageManager:
     def store_as_csv(
         self,
         parsed_train_schedules: List[Dict[str, Any]],
+        parsed_train_shapes: List[Dict[str, Any]],
         spot_train_locations: pd.DataFrame,
     ) -> None:
         """
-        Saves parsed train schedules and spot train locations to CSV files.
+        Saves parsed train schedules, shapes, and spot train locations to CSV files.
 
         :param parsed_train_schedules: List of dictionaries containing parsed train schedule data.
+        :param parsed_train_shapes: List of dictionaries containing parsed train shape data.
         :param spot_train_locations: DataFrame containing current spot train locations.
         """
         if not parsed_train_schedules:
@@ -399,6 +507,18 @@ class DataStorageManager:
                     f"File {schedule_entry_file_path} already exists and will be overwritten."
                 )
             schedule_entry["data"].to_csv(schedule_entry_file_path, index=False)
+
+        # Save shapes
+        for shape_entry in parsed_train_shapes:
+            shape_entry_file_path = (
+                self.parsed_train_shapes_dir
+                / f"{shape_entry['train_number']}_{shape_entry['elvira_id']}.csv"
+            )
+            if shape_entry_file_path.exists():
+                logger.warning(
+                    f"File {shape_entry_file_path} already exists and will be overwritten."
+                )
+            shape_entry["data"].to_csv(shape_entry_file_path, index=False)
 
         # Save spot train locations
         spot_filename = (
@@ -496,24 +616,94 @@ class DataStorageManager:
         return updated_stored_df
 
     def _initialize_parquet_files(
-        self, spot_train_locations: pd.DataFrame, current_df: pd.DataFrame
+        self,
+        spot_train_locations: pd.DataFrame,
+        current_schedules_df: pd.DataFrame,
+        current_shapes_df: pd.DataFrame,
     ) -> None:
         """
         Ensures the initial parquet storage files exist. If not, creates them.
 
         :param spot_train_locations: DataFrame containing current spot train locations.
         :param current_df: DataFrame containing current parsed train schedules.
+        :param current_shapes_df: DataFrame containing current parsed train shapes.
         """
         if not self.stored_parsed_train_schedules_path.exists():
             logger.warning(
                 f"{self.stored_parsed_train_schedules_path} does not exist. Creating..."
             )
-            current_df.to_parquet(self.stored_parsed_train_schedules_path)
+            current_schedules_df.to_parquet(self.stored_parsed_train_schedules_path)
+        if not self.stored_parsed_train_shapes_path.exists():
+            logger.warning(
+                f"{self.stored_parsed_train_shapes_path} does not exist. Creating..."
+            )
+            current_shapes_df.to_parquet(self.stored_parsed_train_shapes_path)
         if not self.stored_spot_train_locations_path.exists():
             logger.warning(
                 f"{self.stored_spot_train_locations_path} does not exist. Creating..."
             )
             spot_train_locations.to_parquet(self.stored_spot_train_locations_path)
+
+    def _update_parsed_train_shape_storage(
+        self, current_df: pd.DataFrame
+    ) -> pd.DataFrame:
+        """
+        Updates the stored parsed train shapes with the current data, ensuring that for each
+        (elvira_id, train_number) pair, only the newest table is kept.
+
+        :param current_df: DataFrame with currently parsed shapes for one or more trains.
+        :return: Updated DataFrame that replaces any existing shapes for each (elvira_id, train_number)
+                found in current_df with the newest version from current_df.
+        """
+        key_columns = ["elvira_id", "train_number"]
+
+        # Update parsed train shapes
+        stored_df = pd.read_parquet(self.stored_parsed_train_shapes_path)
+
+        # If there are no shapes to process, simply return stored_df
+        if current_df.empty:
+            logger.info("No new shape data provided. Stored data remains unchanged.")
+            return stored_df
+
+        # Identify unique (elvira_id, train_number) pairs in the current data
+        current_pairs = current_df[key_columns].drop_duplicates()
+
+        # For each pair, we will remove any old entries from stored_df and then append the new data
+        updated_stored_df = stored_df.copy()
+        replaced_count = 0
+        added_count = 0
+
+        for _, row in current_pairs.iterrows():
+            elvira_id = row["elvira_id"]
+            train_number = row["train_number"]
+
+            # Check if this (elvira_id, train_number) already exists in stored_df
+            mask = (updated_stored_df["elvira_id"] == elvira_id) & (
+                updated_stored_df["train_number"] == train_number
+            )
+            if mask.any():
+                # Remove old version
+                updated_stored_df = updated_stored_df[~mask]
+                replaced_count += 1
+                logger.info(
+                    f"Replacing previously stored shape for train_number={train_number}, elvira_id={elvira_id} with the newer version."
+                )
+            else:
+                added_count += 1
+                logger.info(
+                    f"Adding new shape for train_number={train_number}, elvira_id={elvira_id}."
+                )
+
+        # Append the current shapes
+        updated_stored_df = pd.concat(
+            [updated_stored_df, current_df], ignore_index=True
+        )
+
+        logger.info(
+            f"Shape update complete: {added_count} new shape(s) added, {replaced_count} existing shape(s) replaced."
+        )
+
+        return updated_stored_df
 
 
 class HungarianRailwayScraperPipeline:
@@ -560,25 +750,28 @@ class HungarianRailwayScraperPipeline:
 
         self.train_data_fetcher = TrainDataFetcher(headers)
         self.schedule_parser = ScheduleParser()
+        self.shape_parser = ShapeParser()
         self.storage_handler = DataStorageManager(self.base_dir)
 
     def fetch_and_parse_all_trains(
         self, limit: Optional[int] = None
-    ) -> Tuple[pd.DataFrame, List[Dict[str, Any]]]:
+    ) -> Tuple[pd.DataFrame, List[Dict[str, Any]], List[Dict[str, Any]]]:
         """
         Fetch and parse train data:
         1. Fetch train locations (returns a DataFrame).
         2. Fetch train details for each train and parse the schedules.
+        3. Fetch train shapes for each train.
 
         :param limit: Number of trains to limit processing to, for testing or performance reasons.
         :return: A tuple containing:
                  - DataFrame of spot train locations
                  - List of parsed train schedule dictionaries
+                 - List of parsed train shape dictionaries
         """
         train_locations_df = self.train_data_fetcher.fetch_train_locations()
         if train_locations_df.empty:
             logger.error("No train locations fetched.")
-            return pd.DataFrame(), []
+            return pd.DataFrame(), [], []
 
         train_list = train_locations_df[["elvira_id", "train_number"]].to_dict(
             orient="records"
@@ -608,11 +801,11 @@ class HungarianRailwayScraperPipeline:
 
     async def fetch_and_parse_all_trains_async(
         self, limit: Optional[int] = None
-    ) -> Tuple[pd.DataFrame, List[Dict[str, Any]]]:
+    ) -> Tuple[pd.DataFrame, List[Dict[str, Any]], List[Dict[str, Any]]]:
         train_locations_df = self.train_data_fetcher.fetch_train_locations()
         if train_locations_df.empty:
             logger.error("No train locations fetched.")
-            return pd.DataFrame(), []
+            return pd.DataFrame(), [], []
 
         train_list = train_locations_df[["elvira_id", "train_number"]].to_dict(
             orient="records"
@@ -642,7 +835,28 @@ class HungarianRailwayScraperPipeline:
                     f"Parsed schedule for train {details['train_number']} is empty."
                 )
 
-        return train_locations_df, parsed_train_schedules
+        async with httpx.AsyncClient(headers=self.train_data_fetcher.headers) as client:
+            tasks = [
+                self.train_data_fetcher._fetch_train_route_shape_async(
+                    client, t["elvira_id"], t["train_number"]
+                )
+                for t in train_list
+            ]
+
+            train_shapes = await tqdm_asyncio.gather(*tasks)
+
+        train_shapes = [d for d in train_shapes if d is not None]
+
+        parsed_train_shapes = []
+        for shape in train_shapes:
+            parsed_shape = self.shape_parser.parse_shape_data(**shape)
+            if not parsed_shape["data"].empty:
+                parsed_train_shapes.append(parsed_shape)
+            else:
+                logger.warning(
+                    f"Parsed shape for train {shape['train_number']} is empty."
+                )
+        return train_locations_df, parsed_train_schedules, parsed_train_shapes
 
     def run(
         self,
@@ -664,8 +878,8 @@ class HungarianRailwayScraperPipeline:
 
             if async_mode:
                 # Run the async pipeline
-                train_locations_df, parsed_train_schedules = asyncio.run(
-                    self.fetch_and_parse_all_trains_async(limit)
+                train_locations_df, parsed_train_schedules, parsed_train_shapes = (
+                    asyncio.run(self.fetch_and_parse_all_trains_async(limit))
                 )
             else:
                 # Run the synchronous pipeline
@@ -680,11 +894,11 @@ class HungarianRailwayScraperPipeline:
             save_format = save_format.lower()
             if save_format == "parquet":
                 self.storage_handler.store_as_parquet(
-                    parsed_train_schedules, train_locations_df
+                    parsed_train_schedules, parsed_train_shapes, train_locations_df
                 )
             elif save_format == "csv":
                 self.storage_handler.store_as_csv(
-                    parsed_train_schedules, train_locations_df
+                    parsed_train_schedules, parsed_train_shapes, train_locations_df
                 )
             else:
                 logger.error(
