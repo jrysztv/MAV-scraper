@@ -108,9 +108,12 @@ class TrainDataFetcher:
             "lon",
             "relation",
             "service_type",
+            "line",
         ]
 
         df = df[final_columns]
+        print(f"the following columns are in the spot_df: {df.columns}")
+        df.dropna(axis=1, how="all", inplace=True)
         return df.query('service_type != "HEV"')
 
     def fetch_train_details(
@@ -714,7 +717,7 @@ class HungarianRailwayScraperPipeline:
     3. Storing data to either Parquet or CSV.
     """
 
-    def __init__(self, base_dir: Optional[Path] = None) -> None:
+    def __init__(self, base_dir: Optional[Path] = None, concurrency=3) -> None:
         """
         Initialize the HungarianRailwayPipeline.
 
@@ -748,7 +751,7 @@ class HungarianRailwayScraperPipeline:
             "sec-ch-ua-platform": '"Windows"',
         }
 
-        self.train_data_fetcher = TrainDataFetcher(headers)
+        self.train_data_fetcher = TrainDataFetcher(headers, concurrency=concurrency)
         self.schedule_parser = ScheduleParser()
         self.shape_parser = ShapeParser()
         self.storage_handler = DataStorageManager(self.base_dir)
@@ -913,7 +916,7 @@ class HungarianRailwayScraperPipeline:
 
 # %% Run the pipeline
 if __name__ == "__main__":
-    pipeline = HungarianRailwayScraperPipeline()
+    pipeline = HungarianRailwayScraperPipeline(concurrency=10)
     pipeline.run(
         limit=None, save_format="parquet", async_mode=True
     )  # Set `limit=None` to process all trains
