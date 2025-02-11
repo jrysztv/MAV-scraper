@@ -725,3 +725,37 @@
 2025-02-11 00:15:24.658 | INFO     | mav_scraper.slender.slender:info:39 - 177242 train schedules saved to /home/runner/work/MAV-scraper/MAV-scraper/mav_scraper/data/parsed_train_schedules
 2025-02-11 00:15:24.658 | INFO     | mav_scraper.slender.slender:info:39 - Spot train locations saved to /home/runner/work/MAV-scraper/MAV-scraper/mav_scraper/data/spot_train_locations
 2025-02-11 00:15:25.242 | SUCCESS  | mav_scraper.slender.slender:success:35 - Data pipeline completed successfully
+2025-02-11 00:34:04.561 | INFO     | mav_scraper.slender.slender:info:39 - Starting Hungarian Railway Data Pipeline
+2025-02-11 00:34:14.009 | ERROR    | mav_scraper.slender.slender:error:52 - Error fetching route shape for 55347: 
+2025-02-11 00:34:15.010 | WARNING  | mav_scraper.slender.slender:warning:46 - Retrying route shape fetch for 55347 (1)
+2025-02-11 00:34:20.229 | ERROR    | mav_scraper.slender.slender:error:52 - Error fetching route shape for 55347: 
+2025-02-11 00:34:21.231 | WARNING  | mav_scraper.slender.slender:warning:46 - Retrying route shape fetch for 55347 (2)
+2025-02-11 00:34:26.791 | ERROR    | mav_scraper.slender.slender:error:52 - Error fetching route shape for 55347: 
+2025-02-11 00:34:28.743 | INFO     | mav_scraper.slender.slender:info:39 - Replacing previously stored schedule for train_number=5510, elvira_id=8328063_250210 with the newer version.
+2025-02-11 00:34:29.049 | INFO     | mav_scraper.slender.slender:info:39 - Replacing previously stored schedule for train_number=552010, elvira_id=7596822_250211 with the newer version.
+2025-02-11 00:34:29.351 | INFO     | mav_scraper.slender.slender:info:39 - Replacing previously stored schedule for train_number=552310, elvira_id=7598065_250211 with the newer version.
+2025-02-11 00:34:29.659 | INFO     | mav_scraper.slender.slender:info:39 - Replacing previously stored schedule for train_number=552610, elvira_id=7597665_250211 with the newer version.
+2025-02-11 00:34:29.958 | INFO     | mav_scraper.slender.slender:info:39 - Replacing previously stored schedule for train_number=553030, elvira_id=7608215_250211 with the newer version.
+2025-02-11 00:34:30.256 | INFO     | mav_scraper.slender.slender:info:39 - Replacing previously stored schedule for train_number=553388, elvira_id=7598695_250210 with the newer version.
+2025-02-11 00:34:30.556 | INFO     | mav_scraper.slender.slender:info:39 - Replacing previously stored schedule for train_number=55347, elvira_id=_250210 with the newer version.
+2025-02-11 00:34:30.852 | INFO     | mav_scraper.slender.slender:info:39 - Replacing previously stored schedule for train_number=553610, elvira_id=7597345_250211 with the newer version.
+2025-02-11 00:34:31.006 | INFO     | mav_scraper.slender.slender:info:39 - Adding new schedule for train_number=5536710, elvira_id=7963689_250211.
+2025-02-11 00:34:31.306 | INFO     | mav_scraper.slender.slender:info:39 - Replacing previously stored schedule for train_number=554110, elvira_id=7622565_250211 with the newer version.
+2025-02-11 00:34:31.605 | INFO     | mav_scraper.slender.slender:info:39 - Replacing previously stored schedule for train_number=554810, elvira_id=7599993_250211 with the newer version.
+2025-02-11 00:34:31.906 | INFO     | mav_scraper.slender.slender:info:39 - Replacing previously stored schedule for train_number=559, elvira_id=8328056_250210 with the newer version.
+2025-02-11 00:34:32.033 | INFO     | mav_scraper.slender.slender:info:39 - Schedule update complete: 1 new schedule(s) added, 11 existing schedule(s) replaced.
+2025-02-11 00:34:35.712 | INFO     | mav_scraper.slender.slender:info:39 - Replacing previously stored shape for train_number=5510, elvira_id=8328063_250210 with the newer version.
+2025-02-11 00:34:38.035 | INFO     | mav_scraper.slender.slender:info:39 - Replacing previously stored shape for train_number=552010, elvira_id=7596822_250211 with the newer version.
+2025-02-11 00:34:40.357 | INFO     | mav_scraper.slender.slender:info:39 - Replacing previously stored shape for train_number=552310, elvira_id=7598065_250211 with the newer version.
+2025-02-11 00:34:42.714 | INFO     | mav_scraper.slender.slender:info:39 - Replacing previously stored shape for train_number=552610, elvira_id=7597665_250211 with the newer version.
+2025-02-11 00:34:45.066 | INFO     | mav_scraper.slender.slender:info:39 - Replacing previously stored shape for train_number=553030, elvira_id=7608215_250211 with the newer version.
+2025-02-11 00:34:47.426 | INFO     | mav_scraper.slender.slender:info:39 - Replacing previously stored shape for train_number=553388, elvira_id=7598695_250210 with the newer version.
+2025-02-11 00:34:49.781 | INFO     | mav_scraper.slender.slender:info:39 - Replacing previously stored shape for train_number=553610, elvira_id=7597345_250211 with the newer version.
+2025-02-11 00:34:51.681 | INFO     | mav_scraper.slender.slender:info:39 - Adding new shape for train_number=5536710, elvira_id=7963689_250211.
+2025-02-11 00:34:54.123 | INFO     | mav_scraper.slender.slender:info:39 - Replacing previously stored shape for train_number=554110, elvira_id=7622565_250211 with the newer version.
+2025-02-11 00:34:56.456 | INFO     | mav_scraper.slender.slender:info:39 - Replacing previously stored shape for train_number=554810, elvira_id=7599993_250211 with the newer version.
+2025-02-11 00:34:58.761 | INFO     | mav_scraper.slender.slender:info:39 - Replacing previously stored shape for train_number=559, elvira_id=8328056_250210 with the newer version.
+2025-02-11 00:34:59.102 | INFO     | mav_scraper.slender.slender:info:39 - Shape update complete: 1 new shape(s) added, 10 existing shape(s) replaced.
+2025-02-11 00:35:06.004 | INFO     | mav_scraper.slender.slender:info:39 - 177243 train schedules saved to /home/runner/work/MAV-scraper/MAV-scraper/mav_scraper/data/parsed_train_schedules
+2025-02-11 00:35:06.004 | INFO     | mav_scraper.slender.slender:info:39 - Spot train locations saved to /home/runner/work/MAV-scraper/MAV-scraper/mav_scraper/data/spot_train_locations
+2025-02-11 00:35:06.356 | SUCCESS  | mav_scraper.slender.slender:success:35 - Data pipeline completed successfully
