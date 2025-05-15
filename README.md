@@ -7,5 +7,7 @@ Data included:
 - parsed_train_schedules.parquet - The schedule data for each train, containing reported expected and actual arrival and departure times
 - spot_train_locations.parquet - The real-time location of trains at a given time
 
+This is the first step of a train delay analytical pipeline that leverages the graph structure of train data.
+
 Here is an in-depth Medium article on how it was done:
 https://medium.com/p/25cc2111cb3c
